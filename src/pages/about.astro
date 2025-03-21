@@ -1,62 +1,254 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage="/blog-placeholder-about.jpg"
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="About Eudexio" description="Learn about Eudexio's approach to remote leadership development" />
+	</head>
+	<body>
+		<Header />
+		
+		<!-- Hero Section -->
+		<div class="hero-section">
+			<h1>About Eudexio</h1>
+			<p>Where Science Meets the Art of Remote Leadership</p>
+		</div>
+		
+		<main>
+			<section id="about-detailed">
+				<h2>Beyond the Pixels and Platforms</h2>
+				<p>
+					Remote work isn't a trend—it's a fundamental shift in how humans collaborate. At Eudexio, we believe that exceptional remote leadership requires more than just digital tools. It demands a reimagining of connection, trust, and purpose across the digital divide.
+				</p>
+				
+				<h2>Our Collective</h2>
+				<div class="founders">
+					<div class="founder">
+						<div class="founder-image">
+							<!-- Placeholder for founder image -->
+							<div class="image-placeholder"></div>
+						</div>
+						<p class="founder-quote">
+							"The greatest risk in remote work isn't productivity loss—it's the quiet erosion of belonging."
+						</p>
+						<p>
+							For over a decade, our collective has been immersed in the psychology of distributed teams. We've witnessed the collapse of rigid hierarchies and the rise of fluid, purpose-driven collaboration. Our work spans industries and continents, but our mission remains singular: to help organizations thrive in the spaces between screens.
+						</p>
+					</div>
+					
+					<div class="founder">
+						<div class="founder-image">
+							<!-- Placeholder for founder image -->
+							<div class="image-placeholder"></div>
+						</div>
+						<p class="founder-quote">
+							"The future belongs to leaders who can build psychological safety across time zones."
+						</p>
+						<p>
+							Founded by behavioral scientists with backgrounds in organizational psychology, our approach is both evidence-based and deeply human. We've guided Fortune 500 companies through transformative leadership evolutions, translating cutting-edge research into practical wisdom that reflects the messy, beautiful reality of human collaboration.
+						</p>
+					</div>
+				</div>
+				
+				<h2>How We Work</h2>
+				<p>
+					We reject the false choice between rigorous methodology and creative intuition. Our practice combines empirical research with a deep appreciation for the unique dynamics of your organization. We don't offer one-size-fits-all solutions because we've never met two organizations with identical needs.
+				</p>
+				
+				<div class="approach-cards">
+					<div class="approach-card">
+						<h3>Investigate</h3>
+						<p>
+							We begin by understanding the hidden rhythms and unspoken norms of your team. Through careful observation and targeted inquiry, we map the territory of your remote work culture—identifying both strengths to amplify and friction points to resolve.
+						</p>
+					</div>
+					
+					<div class="approach-card">
+						<h3>Illuminate</h3>
+						<p>
+							Drawing on research across disciplines—from cognitive science to cultural anthropology—we help teams see their patterns with fresh eyes. This moment of collective clarity creates the conditions for meaningful change.
+						</p>
+					</div>
+					
+					<div class="approach-card">
+						<h3>Transform</h3>
+						<p>
+							Through tailored learning experiences, we equip leaders with practical skills and conceptual frameworks. But true transformation happens when these tools become embedded in daily practice, gradually reshaping your organization's remote work DNA.
+						</p>
+					</div>
+				</div>
+				
+				<h2>The Three Pillars</h2>
+				<p>
+					Our framework addresses the three fundamental challenges that determine remote team success:
+				</p>
+				<div class="pillars">
+					<div class="pillar">
+						<h3>Intentional Communication</h3>
+						<p>
+							In a digital environment, communication must be deliberate. We help leaders design communication architectures that minimize noise, maximize signal, and create space for both structured exchange and serendipitous connection.
+						</p>
+					</div>
+					
+					<div class="pillar">
+						<h3>Distributed Trust</h3>
+						<p>
+							Trust functions differently when you can't share physical space. We help leaders build networks of trust that transcend geographical and cultural boundaries, creating psychological safety that enables genuine collaboration.
+						</p>
+					</div>
+					
+					<div class="pillar">
+						<h3>Visible Impact</h3>
+						<p>
+							When work becomes invisible, people feel invisible too. We help leaders create systems that make meaningful work visible without surveillance, centering outcomes over activities and impact over hours.
+						</p>
+					</div>
+				</div>
+				
+				<div class="cta">
+					<h2>Ready to Redefine Remote Leadership?</h2>
+					<p>
+						Begin with our foundational module and discover what's possible when remote leadership is approached with both scientific rigor and human wisdom.
+					</p>
+					<a href="/" class="cta-button">Get Your Free Module</a>
+				</div>
+			</section>
+		</main>
+		
+		<Footer />
+	</body>
+</html>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
-
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
-
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
-
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+<style>
+	#about-detailed {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 40px 20px;
+	}
+	
+	#about-detailed h2 {
+		margin-top: 60px;
+		margin-bottom: 20px;
+		text-align: center;
+	}
+	
+	#about-detailed h2:first-of-type {
+		margin-top: 20px;
+	}
+	
+	#about-detailed p {
+		line-height: 1.7;
+		margin-bottom: 1.5em;
+	}
+	
+	.founders {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+		margin: 40px 0;
+	}
+	
+	.founder {
+		background: var(--background);
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		padding: 30px;
+		box-shadow: var(--box-shadow);
+	}
+	
+	.founder-quote {
+		font-family: 'Playfair Display', serif;
+		font-size: 1.3rem;
+		font-style: italic;
+		color: var(--primary);
+		margin: 20px 0;
+		text-align: center;
+	}
+	
+	.image-placeholder {
+		width: 120px;
+		height: 120px;
+		background-color: var(--secondary);
+		opacity: 0.8;
+		border-radius: 100%;
+		margin: 0 auto;
+	}
+	
+	.approach-cards, .pillars {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 30px;
+		margin: 40px 0;
+	}
+	
+	.approach-card, .pillar {
+		background: var(--background);
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		padding: 30px;
+		box-shadow: var(--box-shadow);
+	}
+	
+	.approach-card h3, .pillar h3 {
+		color: var(--secondary);
+		margin-bottom: 15px;
+		font-size: 1.4rem;
+	}
+	
+	.cta {
+		margin-top: 80px;
+		padding: 50px 40px;
+		background: var(--background);
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		text-align: center;
+		box-shadow: var(--box-shadow);
+	}
+	
+	.cta p {
+		max-width: 600px;
+		margin: 20px auto;
+	}
+	
+	.cta-button {
+		display: inline-block;
+		margin-top: 20px;
+		padding: 14px 28px;
+		background-color: var(--secondary);
+		color: white;
+		text-decoration: none;
+		border-radius: 4px;
+		font-weight: bold;
+		transition: background-color 0.3s ease;
+	}
+	
+	.cta-button:hover {
+		background-color: var(--primary);
+		text-decoration: none;
+	}
+	
+	@media (min-width: 768px) {
+		.founders {
+			flex-direction: row;
+			justify-content: space-between;
+		}
+		
+		.founder {
+			flex: 0 0 48%;
+		}
+		
+		.approach-cards, .pillars {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+	
+	@media (max-width: 767px) {
+		.founder-quote {
+			font-size: 1.2rem;
+		}
+	}
+</style>

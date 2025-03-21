@@ -5,16 +5,20 @@
  */
 
 :root {
-  --accent: #2337ff;
-  --accent-dark: #000d8a;
+  --primary: #482532;
+  --secondary: #607D8B;
+  --background: #FFFAF0;
   --black: 15, 18, 25;
   --gray: 96, 115, 159;
   --gray-light: 229, 233, 240;
   --gray-dark: 34, 41, 57;
-  --gray-gradient: rgba(var(--gray-light), 50%), #fff;
-  --box-shadow: 0 2px 6px rgba(var(--gray), 25%),
-    0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%);
+  --gray-gradient: rgba(var(--gray-light), 50%), var(--background);
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 @font-face {
   font-family: "Atkinson";
   src: url("/fonts/atkinson-regular.woff") format("woff");
@@ -29,109 +33,209 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: "Atkinson", sans-serif;
+  font-family: 'Lato', sans-serif;
   margin: 0;
   padding: 0;
   text-align: left;
-  background: linear-gradient(var(--gray-gradient)) no-repeat;
-  background-size: 100% 600px;
+  background-color: var(--background);
   word-wrap: break-word;
   overflow-wrap: break-word;
-  color: rgb(var(--gray-dark));
-  font-size: 20px;
-  line-height: 1.7;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
 }
+
 main {
-  width: 720px;
-  max-width: calc(100% - 2em);
+  width: 100%;
+  max-width: 1200px;
   margin: auto;
-  padding: 3em 1em;
+  padding: 0;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+
+h1, h2, h3, h4, h5, h6 {
   margin: 0 0 0.5rem 0;
-  color: rgb(var(--black));
+  color: #333;
+  font-family: 'Playfair Display', serif;
   line-height: 1.2;
 }
+
 h1 {
-  font-size: 3.052em;
+  font-size: 3rem;
 }
 h2 {
-  font-size: 2.441em;
+  font-size: 1.8rem;
 }
 h3 {
-  font-size: 1.953em;
+  font-size: 1.5rem;
 }
-h4 {
-  font-size: 1.563em;
-}
-h5 {
-  font-size: 1.25em;
-}
-strong,
-b {
+
+strong, b {
   font-weight: 700;
 }
+
 a {
-  color: var(--accent);
+  color: var(--secondary);
+  text-decoration: none;
 }
 a:hover {
-  color: var(--accent);
+  text-decoration: underline;
 }
+
 p {
   margin-bottom: 1em;
 }
-.prose p {
-  margin-bottom: 2em;
-}
-textarea {
-  width: 100%;
+
+input, textarea {
+  font-family: 'Lato', sans-serif;
   font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
-input {
-  font-size: 16px;
+
+button, input[type="submit"] {
+  padding: 12px;
+  background: var(--secondary);
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-family: 'Lato', sans-serif;
 }
-table {
-  width: 100%;
+
+button:hover, input[type="submit"]:hover {
+  background: var(--primary);
 }
+
 img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
 }
-code {
-  padding: 2px 5px;
-  background-color: rgb(var(--gray-light));
-  border-radius: 2px;
+
+/* Layout components */
+header.site-header {
+  background-color: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 20px 10px;
 }
-pre {
-  padding: 1.5em;
+
+.hero-section {
+  background-color: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.hero-section p {
+  font-size: 1.1rem;
+}
+
+section {
+  margin: 40px 0;
+  padding: 0 20px;
+}
+
+.modules {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 10px;
+}
+
+.module {
+  background: var(--background);
+  border: 1px solid #ddd;
   border-radius: 8px;
+  padding: 20px;
+  box-shadow: var(--box-shadow);
 }
-pre > code {
-  all: unset;
+
+.module h3 {
+  color: var(--secondary);
+  margin-bottom: 10px;
 }
-blockquote {
-  border-left: 4px solid var(--accent);
-  padding: 0 0 0 20px;
-  margin: 0px;
-  font-size: 1.333em;
+
+.module h3.centered {
+  text-align: center;
 }
-hr {
-  border: none;
-  border-top: 1px solid rgb(var(--gray-light));
+
+.cta {
+  background: var(--background);
+  padding: 40px 20px;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  margin: 40px 0;
 }
+
+.cta h2 {
+  color: var(--secondary);
+}
+
+footer {
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+}
+
+/* About section styling */
+#about {
+  padding: 30px 20px;
+  background-color: var(--background);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  margin: 40px auto;
+  max-width: 800px;
+}
+
+/* Responsive Layout */
+@media (min-width: 600px) {
+  .modules {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .module {
+    flex: 0 0 48%;
+  }
+}
+
+@media (min-width: 900px) {
+  .module {
+    flex: 0 0 30%;
+  }
+}
+
 @media (max-width: 720px) {
   body {
-    font-size: 18px;
+    font-size: 16px;
   }
-  main {
-    padding: 1em;
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 1.5rem;
   }
 }
 
@@ -143,12 +247,8 @@ hr {
   height: 1px;
   width: 1px;
   overflow: hidden;
-  /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
   clip: rect(1px 1px 1px 1px);
-  /* maybe deprecated but we need to support legacy browsers */
   clip: rect(1px, 1px, 1px, 1px);
-  /* modern browsers, clip-path works inwards from each corner */
   clip-path: inset(50%);
-  /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
   white-space: nowrap;
 }

@@ -1,0 +1,1733 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Distributed Team Maturity Assessment" description="Measure your team's effectiveness in remote and hybrid work with our research-backed assessment" />
+		<link href="https://unpkg.com/survey-core/defaultV2.min.css" rel="stylesheet" />
+		<script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"></script>
+		<script src="https://unpkg.com/survey-jquery@1.9.94/survey.jquery.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	</head>
+	<body>
+		<Header />
+		
+		<!-- Hero Section -->
+		<div class="hero-section">
+			<h1>Distributed Team Maturity Assessment</h1>
+			<p>Research-Backed • Comprehensive • Actionable</p>
+		</div>
+		
+		<main>
+			<section class="survey-intro">
+				<h2>How Prepared Is Your Team for Distributed Work?</h2>
+				<p>
+					This comprehensive assessment evaluates your team's maturity across both practical and cultural dimensions critical for distributed work success. Based on organizational psychology research, it identifies your strengths and opportunities for growth.
+				</p>
+				
+				<div class="instructions">
+					<h3>Instructions:</h3>
+					<ul>
+						<li>The assessment takes approximately 8-10 minutes to complete</li>
+						<li>Respond to each statement based on your team's current practices</li>
+						<li>Consider your team's experiences over the past 3-6 months</li>
+						<li>For the most accurate results, answer honestly and reflectively</li>
+						<li>You'll receive immediate insights upon completion</li>
+					</ul>
+				</div>
+			</section>
+			
+			<!-- Survey Container -->
+			<section class="survey-container">
+				<div id="surveyElement"></div>
+				<div id="surveyResult" style="display:none"></div>
+			</section>
+		</main>
+		
+		<Footer />
+		
+		<script>
+		window.addEventListener('DOMContentLoaded', (event) => {
+			const isMobile = window.innerWidth <= 768;
+			
+			// Survey JSON
+			const surveyJson = {
+				title: "",
+				showProgressBar: "bottom",
+				progressBarType: "buttons",
+				showQuestionNumbers: "off",
+				completeText: "Submit Assessment",
+				pageNextText: "Continue",
+				pagePreviousText: "Previous",
+				firstPageIsStarted: true,
+				startSurveyText: "Begin Assessment",
+				showPreviewBeforeComplete: "showAnsweredQuestions",
+				checkErrorsMode: "onValueChanged",
+				widthMode: "responsive",
+				showNavigationButtons: true,
+				goNextPageAutomatic: false,
+				requiredText: "",
+				questionsOnPageMode: "questionPerPage",
+				showPrevButton: true,
+				maxTextLength: 2000,
+				maxOthersLength: 1000,
+				pages: [
+					{
+						name: "intro",
+						elements: [
+							{
+								type: "html",
+								name: "welcome",
+								html: "<div class='survey-welcome'><h2>Ready to begin your assessment?</h2><p>This evidence-based assessment will evaluate your team's distributed work maturity across 11 dimensions. You'll receive personalized insights to help strengthen your team's remote and hybrid capabilities.</p></div>"
+							}
+						]
+					},
+					{
+						name: "contact",
+						title: "Your Information",
+						elements: [
+							{
+								type: "text",
+								name: "firstName",
+								title: "First Name",
+								isRequired: true,
+								placeholder: "Your first name",
+								maxLength: 50
+							},
+							{
+								type: "text",
+								name: "email",
+								title: "Email Address",
+								isRequired: true,
+								placeholder: "Your work email",
+								inputType: "email",
+								validators: [
+									{
+										type: "email"
+									}
+								]
+							},
+							{
+								type: "dropdown",
+								name: "role",
+								title: "Your Role",
+								isRequired: true,
+								choices: [
+									"Team member",
+									"Team leader/manager",
+									"Director",
+									"Executive/C-suite",
+									"Other"
+								],
+								placeholder: "Select your role"
+							},
+							{
+								type: "dropdown",
+								name: "teamSize",
+								title: "Team Size",
+								isRequired: true,
+								choices: [
+									"2-5 members",
+									"6-10 members",
+									"11-20 members",
+									"21-50 members",
+									"50+ members"
+								],
+								placeholder: "Select team size"
+							},
+							{
+								type: "dropdown",
+								name: "workModel",
+								title: "Current Work Model",
+								isRequired: true,
+								choices: [
+									"Fully co-located (everyone in office)",
+									"Primarily co-located with occasional remote work",
+									"Hybrid (regular mix of remote and in-office)",
+									"Primarily remote with occasional in-person",
+									"Fully remote/distributed"
+								],
+								placeholder: "Select your work model"
+							}
+						]
+					},
+					// PRACTICAL FACTORS SECTION
+					{
+						name: "practical_intro",
+						elements: [
+							{
+								type: "html",
+								name: "practical_intro_text",
+								html: "<div class='section-intro'><h2>Practical Factors</h2><p>This section evaluates the practical and operational aspects of how your team functions in a distributed environment, including communication tools, processes, and resources.</p></div>"
+							}
+						]
+					},
+					{
+						name: "communication",
+						title: "Communication & Technology",
+						elements: [
+							{
+								type: "matrix",
+								name: "communicationMatrix",
+								title: "Please rate your agreement with each statement:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "comm1",
+										text: "Our collaboration tools are easy to use, reliable, and meet our remote/hybrid work needs."
+									},
+									{
+										value: "comm2",
+										text: "Our virtual meetings are consistently productive and well-structured."
+									},
+									{
+										value: "comm3",
+										text: "Communication across the team is clear and timely, even when asynchronous."
+									}
+								]
+							}
+						]
+					},
+					{
+						name: "processes",
+						title: "Work Processes & Structures",
+						elements: [
+							{
+								type: "matrix",
+								name: "processesMatrix",
+								title: "Please rate your agreement with each statement:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "proc1",
+										text: "Our tasks and responsibilities are clearly defined, accessible, and transparent."
+									},
+									{
+										value: "proc2",
+										text: "Our workflows and processes effectively support distributed work."
+									},
+									{
+										value: "proc3",
+										text: "Critical team information is consistently documented and easily accessible to all."
+									}
+								]
+							}
+						]
+					},
+					{
+						name: "performance",
+						title: "Performance Management & Accountability",
+						elements: [
+							{
+								type: "matrix",
+								name: "performanceMatrix",
+								title: "Please rate your agreement with each statement:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "perf1",
+										text: "Expectations for remote/hybrid team members are clear and measurable."
+									},
+									{
+										value: "perf2",
+										text: "Feedback on performance is regularly provided and actionable in a remote context."
+									},
+									{
+										value: "perf3",
+										text: "Team members are evaluated fairly based on outcomes rather than visibility or presence."
+									}
+								]
+							}
+						]
+					},
+					{
+						name: "resources",
+						title: "Resource Accessibility",
+						elements: [
+							{
+								type: "matrix",
+								name: "resourcesMatrix",
+								title: "Please rate your agreement with each statement:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "res1",
+										text: "Essential resources (tools, technology, support) are consistently accessible remotely."
+									},
+									{
+										value: "res2",
+										text: "Technical or logistical issues are easily and quickly resolved in a distributed environment."
+									},
+									{
+										value: "res3",
+										text: "Resources are equitably distributed among remote and onsite team members."
+									}
+								]
+							}
+						]
+					},
+					{
+						name: "training",
+						title: "Training & Skill Development",
+						elements: [
+							{
+								type: "matrix",
+								name: "trainingMatrix",
+								title: "Please rate your agreement with each statement:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "train1",
+										text: "Our team regularly receives training on best practices for distributed working."
+									},
+									{
+										value: "train2",
+										text: "Team members have sufficient skills and knowledge to utilize remote collaboration tools effectively."
+									},
+									{
+										value: "train3",
+										text: "New team members receive comprehensive orientation for remote/hybrid team practices."
+									}
+								]
+							}
+						]
+					},
+					// ABSTRACT FACTORS SECTION
+					{
+						name: "abstract_intro",
+						elements: [
+							{
+								type: "html",
+								name: "abstract_intro_text",
+								html: "<div class='section-intro'><h2>Cultural & Interpersonal Factors</h2><p>This section evaluates the team's cultural and interpersonal aspects that affect distributed work, including trust, engagement, and adaptability.</p></div>"
+							}
+						]
+					},
+					{
+						name: "trust",
+						title: "Trust & Psychological Safety",
+						elements: [
+							{
+								type: "matrix",
+								name: "trustMatrix",
+								title: "Please rate your agreement with each statement:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "trust1",
+										text: "Team members consistently trust one another's integrity and reliability, even when remote."
+									},
+									{
+										value: "trust2",
+										text: "Team members feel psychologically safe expressing concerns or challenges in virtual settings."
+									},
+									{
+										value: "trust3",
+										text: "It's easy to ask for support or assistance from teammates remotely without hesitation."
+									}
+								]
+							}
+						]
+					},
+					{
+						name: "culture",
+						title: "Culture & Belonging",
+						elements: [
+							{
+								type: "matrix",
+								name: "cultureMatrix",
+								title: "Please rate your agreement with each statement:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "cult1",
+										text: "Team members consistently feel included and connected, despite geographic distances."
+									},
+									{
+										value: "cult2",
+										text: "Leadership actively cultivates a shared sense of identity and purpose among distributed team members."
+									},
+									{
+										value: "cult3",
+										text: "Efforts are consistently made to build and sustain team relationships remotely."
+									}
+								]
+							}
+						]
+					},
+					{
+						name: "adaptability",
+						title: "Adaptability & Resilience",
+						elements: [
+							{
+								type: "matrix",
+								name: "adaptabilityMatrix",
+								title: "Please rate your agreement with each statement:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "adapt1",
+										text: "Our team quickly adapts to changes or disruptions in a remote/hybrid context."
+									},
+									{
+										value: "adapt2",
+										text: "We learn effectively from setbacks or challenges experienced in virtual environments."
+									},
+									{
+										value: "adapt3",
+										text: "Our team regularly experiments with new approaches to improve remote/hybrid working."
+									}
+								]
+							}
+						]
+					},
+					{
+						name: "leadership",
+						title: "Leadership & Alignment",
+						elements: [
+							{
+								type: "matrix",
+								name: "leadershipMatrix",
+								title: "Please rate your agreement with each statement:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "lead1",
+										text: "Leadership provides clear and effective direction for remote/hybrid work."
+									},
+									{
+										value: "lead2",
+										text: "Team members consistently understand and are aligned around shared goals and priorities."
+									},
+									{
+										value: "lead3",
+										text: "Leaders proactively communicate important information, especially when remote or hybrid."
+									}
+								]
+							}
+						]
+					},
+					{
+						name: "engagement",
+						title: "Engagement & Motivation",
+						elements: [
+							{
+								type: "matrix",
+								name: "engagementMatrix",
+								title: "Please rate your agreement with each statement:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "engage1",
+										text: "Remote/hybrid team members demonstrate high levels of motivation and engagement."
+									},
+									{
+										value: "engage2",
+										text: "Our team has effective ways to recognize and celebrate contributions remotely."
+									},
+									{
+										value: "engage3",
+										text: "Autonomy is balanced effectively with team accountability in a distributed context."
+									}
+								]
+							}
+						]
+					},
+					{
+						name: "crosscultural",
+						title: "Cross-Cultural Fluency",
+						elements: [
+							{
+								type: "matrix",
+								name: "crossculturalMatrix",
+								title: "Please rate your agreement with each statement:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "cross1",
+										text: "Our team consistently demonstrates understanding and appreciation for cultural differences."
+									},
+									{
+										value: "cross2",
+										text: "Team members effectively navigate cross-cultural communication challenges remotely."
+									},
+									{
+										value: "cross3",
+										text: "Team members adapt well to diverse working styles and expectations across cultures."
+									}
+								]
+							}
+						]
+					},
+					// OVERALL MATURITY ASSESSMENT
+					{
+						name: "overall_assessment",
+						title: "Overall Maturity Assessment",
+						elements: [
+							{
+								type: "matrix",
+								name: "overallMatrix",
+								title: "Considering all aspects, please rate your agreement with these statements:",
+								isRequired: true,
+								columns: [
+									{
+										value: 1,
+										text: "Strongly Disagree"
+									},
+									{
+										value: 2,
+										text: "Disagree"
+									},
+									{
+										value: 3,
+										text: "Neutral"
+									},
+									{
+										value: 4,
+										text: "Agree"
+									},
+									{
+										value: 5,
+										text: "Strongly Agree"
+									}
+								],
+								rows: [
+									{
+										value: "practical",
+										text: "Overall, our team's practical capabilities for distributed work are mature and effective."
+									},
+									{
+										value: "abstract",
+										text: "Overall, our team's cultural and interpersonal maturity for distributed work is high."
+									},
+									{
+										value: "overall",
+										text: "Overall, our team demonstrates maturity and effectiveness in operating as a partially or fully distributed team."
+									}
+								]
+							}
+						]
+					},
+					{
+						name: "open_feedback",
+						title: "Additional Feedback",
+						elements: [
+							{
+								type: "comment",
+								name: "strengths",
+								title: "What do you consider your team's greatest strengths in distributed work?",
+								placeholder: "Share your thoughts here...",
+								rows: 3
+							},
+							{
+								type: "comment",
+								name: "challenges",
+								title: "What are the biggest challenges your team faces in distributed work?",
+								placeholder: "Share your thoughts here...",
+								rows: 3
+							}
+						]
+					}
+				]
+			};
+
+			// Adjust the question display based on device
+			if (isMobile) {
+				surveyJson.questionsOrder = "initial";
+				surveyJson.questionsOnPageMode = "singlePage";
+				
+				// Adjust matrix questions to be more mobile-friendly
+				surveyJson.pages.forEach(page => {
+					if (page.elements) {
+						page.elements.forEach(element => {
+							if (element.type === "matrix") {
+								element.alternateRows = true;
+								element.columnsLocation = "vertical";
+								element.isAllRowRequired = true;
+							}
+						});
+					}
+				});
+			}
+
+			// Create the survey
+			const survey = new Survey.Model(surveyJson);
+			
+			// Set custom colors that match our theme
+			survey.applyTheme({
+				"cssVariables": {
+					"--sjs-general-backcolor": "var(--background)",
+					"--sjs-general-forecolor": "#333333",
+					"--sjs-header-backcolor": "var(--background)",
+					"--sjs-header-forecolor": "var(--primary)",
+					"--sjs-body-backcolor": "var(--background)",
+					"--sjs-body-forecolor": "#333333",
+					"--sjs-page-backcolor": "var(--background)",
+					"--sjs-font-family": "'Lato', sans-serif",
+					"--sjs-question-background": "white",
+					"--sjs-primary-backcolor": "var(--secondary)",
+					"--sjs-primary-backcolor-light": "rgba(96, 125, 139, 0.1)",
+					"--sjs-primary-forecolor": "#ffffff",
+					"--sjs-primary-forecolor-light": "var(--secondary)",
+					"--sjs-base-unit": "8px",
+					"--sjs-secondary-backcolor": "var(--primary)",
+					"--sjs-secondary-backcolor-light": "rgba(72, 37, 50, 0.1)",
+					"--sjs-secondary-forecolor": "#ffffff",
+					"--sjs-secondary-forecolor-light": "var(--primary)",
+					"--sjs-border-color": "#d6d6d6",
+					"--sjs-shadow-medium": "0px 2px 6px rgba(0, 0, 0, 0.1)",
+					"--sjs-shadow-large": "0px 8px 16px rgba(0, 0, 0, 0.1)"
+				}
+			});
+			
+			// Customize UI text elements
+			survey.completedHtml = "<div class='survey-completed'><h2>Thank you for completing the assessment!</h2><p>We're analyzing your results...</p></div>";
+			
+			// Render the survey
+			$("#surveyElement").Survey({
+				model: survey,
+				onComplete: function(survey, options) {
+					// Show loading indicator
+					$("#surveyElement").html("<div class='loading-results'><div class='spinner'></div><p>Analyzing your results...</p></div>");
+					
+					// Simulate processing time (would be replaced with actual API call)
+					setTimeout(function() {
+						// Calculate scores
+						const scores = calculateScores(survey);
+						
+						// Generate results HTML
+						const resultsHtml = generateResultsHtml(scores, survey);
+						
+						// Display results
+						$("#surveyElement").html(resultsHtml);
+						
+						// Scroll to top of results
+						window.scrollTo({ top: 0, behavior: 'smooth' });
+					}, 2000);
+				}
+			});
+			
+			// Calculate scores from survey responses
+			function calculateScores(survey) {
+				// Get all matrix question values
+				const data = survey.data;
+				
+				// Calculate practical factor scores
+				const communicationScore = calculateMatrixAverage(data.communicationMatrix);
+				const processesScore = calculateMatrixAverage(data.processesMatrix);
+				const performanceScore = calculateMatrixAverage(data.performanceMatrix);
+				const resourcesScore = calculateMatrixAverage(data.resourcesMatrix);
+				const trainingScore = calculateMatrixAverage(data.trainingMatrix);
+				
+				// Calculate abstract factor scores
+				const trustScore = calculateMatrixAverage(data.trustMatrix);
+				const cultureScore = calculateMatrixAverage(data.cultureMatrix);
+				const adaptabilityScore = calculateMatrixAverage(data.adaptabilityMatrix);
+				const leadershipScore = calculateMatrixAverage(data.leadershipMatrix);
+				const engagementScore = calculateMatrixAverage(data.engagementMatrix);
+				const crossculturalScore = calculateMatrixAverage(data.crossculturalMatrix);
+				
+				// Calculate composite scores
+				const practicalAvg = (communicationScore + processesScore + performanceScore + resourcesScore + trainingScore) / 5;
+				const abstractAvg = (trustScore + cultureScore + adaptabilityScore + leadershipScore + engagementScore + crossculturalScore) / 6;
+				const overallAvg = (practicalAvg + abstractAvg) / 2;
+				
+				// Get self-assessment scores
+				const practicalSelf = data.overallMatrix.practical;
+				const abstractSelf = data.overallMatrix.abstract;
+				const overallSelf = data.overallMatrix.overall;
+				
+				return {
+					firstName: data.firstName,
+					email: data.email,
+					role: data.role,
+					teamSize: data.teamSize,
+					workModel: data.workModel,
+					
+					// Practical factors
+					communication: communicationScore,
+					processes: processesScore,
+					performance: performanceScore,
+					resources: resourcesScore,
+					training: trainingScore,
+					
+					// Abstract factors
+					trust: trustScore,
+					culture: cultureScore,
+					adaptability: adaptabilityScore,
+					leadership: leadershipScore,
+					engagement: engagementScore,
+					crosscultural: crossculturalScore,
+					
+					// Composite scores
+					practicalAvg: practicalAvg,
+					abstractAvg: abstractAvg,
+					overallAvg: overallAvg,
+					
+					// Self-assessment
+					practicalSelf: practicalSelf,
+					abstractSelf: abstractSelf,
+					overallSelf: overallSelf,
+					
+					// Open-ended responses
+					strengths: data.strengths || "Not provided",
+					challenges: data.challenges || "Not provided"
+				};
+			}
+			
+			// Helper function to calculate average score from matrix responses
+			function calculateMatrixAverage(matrixData) {
+				if (!matrixData) return 0;
+				
+				let sum = 0;
+				let count = 0;
+				
+				for (const key in matrixData) {
+					sum += parseInt(matrixData[key]);
+					count++;
+				}
+				
+				return count > 0 ? Math.round((sum / count) * 10) / 10 : 0;
+			}
+			
+			// Generate HTML for results dashboard
+			function generateResultsHtml(scores, survey) {
+				// Determine maturity level
+				const maturityLevel = getMaturityLevel(scores.overallAvg);
+				const practicalLevel = getMaturityLevel(scores.practicalAvg);
+				const abstractLevel = getMaturityLevel(scores.abstractAvg);
+				
+				// Format data for visual display
+				const topStrengths = findTopStrengths(scores);
+				const topOpportunities = findTopOpportunities(scores);
+				
+				return `
+					<div class="results-container">
+						<div class="results-header">
+							<h2>Your Distributed Team Maturity Results</h2>
+							<p>Thank you, ${scores.firstName}! Below are your team's results based on your assessment.</p>
+						</div>
+						
+						<div class="overall-maturity">
+							<div class="maturity-level ${maturityLevel.toLowerCase()}">
+								<h3>Overall Maturity Level</h3>
+								<div class="level-indicator">${maturityLevel}</div>
+								<div class="score-display">${scores.overallAvg.toFixed(1)}/5.0</div>
+							</div>
+							<div class="maturity-description">
+								<p>${getMaturityDescription(maturityLevel)}</p>
+							</div>
+						</div>
+						
+						<div class="domain-scores">
+							<div class="domain-score practical">
+								<h3>Practical Factors</h3>
+								<div class="score-circle ${practicalLevel.toLowerCase()}">${scores.practicalAvg.toFixed(1)}</div>
+								<span class="level-label">${practicalLevel}</span>
+							</div>
+							<div class="domain-score abstract">
+								<h3>Cultural & Interpersonal Factors</h3>
+								<div class="score-circle ${abstractLevel.toLowerCase()}">${scores.abstractAvg.toFixed(1)}</div>
+								<span class="level-label">${abstractLevel}</span>
+							</div>
+						</div>
+						
+						<div class="dimension-breakdown">
+							<h3>Dimension Breakdown</h3>
+							<div class="dimensions">
+								<div class="dimension-category">
+									<h4>Practical Factors</h4>
+									<div class="dimension-items">
+										${createDimensionItem("Communication & Technology", scores.communication)}
+										${createDimensionItem("Work Processes & Structures", scores.processes)}
+										${createDimensionItem("Performance Management", scores.performance)}
+										${createDimensionItem("Resource Accessibility", scores.resources)}
+										${createDimensionItem("Training & Skill Development", scores.training)}
+									</div>
+								</div>
+								<div class="dimension-category">
+									<h4>Cultural & Interpersonal Factors</h4>
+									<div class="dimension-items">
+										${createDimensionItem("Trust & Psychological Safety", scores.trust)}
+										${createDimensionItem("Culture & Belonging", scores.culture)}
+										${createDimensionItem("Adaptability & Resilience", scores.adaptability)}
+										${createDimensionItem("Leadership & Alignment", scores.leadership)}
+										${createDimensionItem("Engagement & Motivation", scores.engagement)}
+										${createDimensionItem("Cross-Cultural Fluency", scores.crosscultural)}
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="insights-section">
+							<h3>Key Insights</h3>
+							<div class="insights-container">
+								<div class="insight-column strengths">
+									<h4>Top Strengths</h4>
+									<ul>
+										${topStrengths.map(s => `<li>
+											<strong>${s.name}:</strong> ${s.score.toFixed(1)}/5.0
+											<p>${getStrengthFeedback(s.id, s.score)}</p>
+										</li>`).join('')}
+									</ul>
+								</div>
+								<div class="insight-column opportunities">
+									<h4>Growth Opportunities</h4>
+									<ul>
+										${topOpportunities.map(o => `<li>
+											<strong>${o.name}:</strong> ${o.score.toFixed(1)}/5.0
+											<p>${getOpportunityFeedback(o.id, o.score)}</p>
+										</li>`).join('')}
+									</ul>
+								</div>
+							</div>
+						</div>
+						
+						<div class="next-steps">
+							<h3>Recommended Next Steps</h3>
+							<p>Based on your results, here are tailored recommendations to strengthen your team's distributed work capabilities:</p>
+							<ol>
+								<li>${getTopRecommendation(scores, topOpportunities[0])}</li>
+								<li>${getSecondRecommendation(scores, topOpportunities[1])}</li>
+								<li>${getThirdRecommendation(scores)}</li>
+							</ol>
+							
+							<div class="action-buttons">
+								<a href="#" class="download-btn" onclick="window.print(); return false;">Download PDF Report</a>
+								<a href="mailto:contact@eudex.io?subject=Distributed Team Maturity Assessment Follow-up&body=Hello,%0D%0A%0D%0AI recently completed the Distributed Team Maturity Assessment and would like to discuss my results (Overall score: ${scores.overallAvg.toFixed(1)}/5.0).%0D%0A%0D%0AName: ${scores.firstName}%0D%0AEmail: ${scores.email}%0D%0ARole: ${scores.role}%0D%0ATeam Size: ${scores.teamSize}%0D%0AWork Model: ${scores.workModel}%0D%0A%0D%0AI'm particularly interested in improving our team's capabilities in ${topOpportunities[0].name.toLowerCase()} and ${topOpportunities[1].name.toLowerCase()}.%0D%0A%0D%0APlease contact me to discuss how eudex.io can help our team improve our distributed work effectiveness.%0D%0A%0D%0AThank you," class="connect-btn">Connect with a Consultant</a>
+							</div>
+						</div>
+					</div>
+				`;
+			}
+			
+			// Helper function to create dimension item HTML
+			function createDimensionItem(name, score) {
+				const level = getMaturityLevel(score);
+				const levelClass = level.toLowerCase();
+				
+				return `
+					<div class="dimension-item">
+						<div class="dimension-name">${name}</div>
+						<div class="dimension-score-bar">
+							<div class="score-fill ${levelClass}" style="width: ${(score/5)*100}%"></div>
+							<span class="score-value">${score.toFixed(1)}</span>
+						</div>
+					</div>
+				`;
+			}
+			
+			// Helper functions for finding strengths and opportunities
+			function findTopStrengths(scores) {
+				const dimensions = [
+					{ id: "communication", name: "Communication & Technology", score: scores.communication },
+					{ id: "processes", name: "Work Processes & Structures", score: scores.processes },
+					{ id: "performance", name: "Performance Management", score: scores.performance },
+					{ id: "resources", name: "Resource Accessibility", score: scores.resources },
+					{ id: "training", name: "Training & Skill Development", score: scores.training },
+					{ id: "trust", name: "Trust & Psychological Safety", score: scores.trust },
+					{ id: "culture", name: "Culture & Belonging", score: scores.culture },
+					{ id: "adaptability", name: "Adaptability & Resilience", score: scores.adaptability },
+					{ id: "leadership", name: "Leadership & Alignment", score: scores.leadership },
+					{ id: "engagement", name: "Engagement & Motivation", score: scores.engagement },
+					{ id: "crosscultural", name: "Cross-Cultural Fluency", score: scores.crosscultural }
+				];
+				
+				return dimensions.sort((a, b) => b.score - a.score).slice(0, 3);
+			}
+			
+			function findTopOpportunities(scores) {
+				const dimensions = [
+					{ id: "communication", name: "Communication & Technology", score: scores.communication },
+					{ id: "processes", name: "Work Processes & Structures", score: scores.processes },
+					{ id: "performance", name: "Performance Management", score: scores.performance },
+					{ id: "resources", name: "Resource Accessibility", score: scores.resources },
+					{ id: "training", name: "Training & Skill Development", score: scores.training },
+					{ id: "trust", name: "Trust & Psychological Safety", score: scores.trust },
+					{ id: "culture", name: "Culture & Belonging", score: scores.culture },
+					{ id: "adaptability", name: "Adaptability & Resilience", score: scores.adaptability },
+					{ id: "leadership", name: "Leadership & Alignment", score: scores.leadership },
+					{ id: "engagement", name: "Engagement & Motivation", score: scores.engagement },
+					{ id: "crosscultural", name: "Cross-Cultural Fluency", score: scores.crosscultural }
+				];
+				
+				return dimensions.sort((a, b) => a.score - b.score).slice(0, 3);
+			}
+			
+			// Helper functions for results interpretation
+			function getMaturityLevel(score) {
+				if (score >= 4.5) return "Exemplary";
+				if (score >= 3.8) return "Advanced";
+				if (score >= 3.0) return "Established";
+				if (score >= 2.0) return "Developing";
+				return "Emerging";
+			}
+			
+			function getMaturityDescription(level) {
+				switch(level) {
+					case "Exemplary":
+						return "Your team demonstrates exceptional maturity in distributed work practices, serving as a model for effective remote collaboration. Your practices could serve as a template for other teams in your organization.";
+					case "Advanced":
+						return "Your team has developed strong distributed work capabilities, with established practices that effectively support remote collaboration. There are still targeted opportunities to further enhance specific dimensions.";
+					case "Established":
+						return "Your team has developed foundational distributed work practices, with moderate effectiveness. Several areas show strength, while others present clear opportunities for improvement.";
+					case "Developing":
+						return "Your team is in the early stages of building effective distributed work practices. While some foundations are in place, there are significant opportunities to enhance capabilities across multiple dimensions.";
+					case "Emerging":
+						return "Your team is at the beginning of its distributed work journey. Most dimensions require substantial development to support effective remote collaboration. A comprehensive approach to improvement is recommended.";
+					default:
+						return "Your team shows varying levels of distributed work maturity across different dimensions. Focus on your lowest-scoring areas to improve overall effectiveness.";
+				}
+			}
+			
+			// Feedback functions for strengths and opportunities
+			function getStrengthFeedback(dimensionId, score) {
+				const feedbackMap = {
+					"communication": "Your team effectively leverages communication technology to support remote collaboration. This creates clarity and connection across physical distances.",
+					"processes": "Clear work processes provide structure and transparency that are vital for distributed teams. Your team has established effective systems that support remote work.",
+					"performance": "Your performance management approach effectively focuses on outcomes rather than activity or visibility, creating fairness in a distributed context.",
+					"resources": "Your team has ensured equitable access to resources across locations, supporting productivity regardless of where team members work.",
+					"training": "Investment in distributed work skills and knowledge is paying off, enabling team members to collaborate effectively across distances.",
+					"trust": "High psychological safety in virtual environments enables open communication and risk-taking, essential for innovation in distributed teams.",
+					"culture": "Your team has successfully fostered belonging and connection despite physical distance, creating a cohesive team identity.",
+					"adaptability": "Your team's ability to adapt to changing conditions and learn from challenges is a critical asset in the dynamic world of distributed work.",
+					"leadership": "Clear direction and alignment from leadership provides the foundation for effective distributed work, keeping everyone focused on shared priorities.",
+					"engagement": "Your team maintains high motivation and engagement in a distributed context, balancing autonomy with accountability effectively.",
+					"crosscultural": "Strong cross-cultural fluency enables your team to leverage diverse perspectives, particularly valuable in geographically dispersed teams."
+				};
+				
+				return feedbackMap[dimensionId] || "This dimension represents a significant strength for your team.";
+			}
+			
+			function getOpportunityFeedback(dimensionId, score) {
+				const feedbackMap = {
+					"communication": "Enhancing communication tools and practices would help reduce misalignment and create more clarity across physical distances.",
+					"processes": "Developing more structured workflows and documentation would provide the transparency needed for effective distributed collaboration.",
+					"performance": "Shifting toward outcome-based performance evaluation would create greater fairness and clarity for remote team members.",
+					"resources": "Ensuring equitable access to resources across locations would support productivity regardless of where team members work.",
+					"training": "Investment in distributed work skills and knowledge would enable team members to collaborate more effectively across distances.",
+					"trust": "Building psychological safety in virtual environments would enable more open communication and risk-taking, essential for innovation.",
+					"culture": "Strengthening belonging and connection despite physical distance would create a more cohesive team identity and reduce isolation.",
+					"adaptability": "Developing your team's ability to adapt to changing conditions and learn from challenges would increase resilience in distributed work.",
+					"leadership": "More clear direction and alignment from leadership would provide a stronger foundation for effective distributed work.",
+					"engagement": "Strategies to maintain motivation and engagement in a distributed context would help balance autonomy with accountability.",
+					"crosscultural": "Developing cross-cultural fluency would help your team leverage diverse perspectives, particularly valuable in geographically dispersed teams."
+				};
+				
+				return feedbackMap[dimensionId] || "This dimension represents an opportunity area for your team to strengthen.";
+			}
+			
+			// Recommendation functions
+			function getTopRecommendation(scores, topOpportunity) {
+				if (!topOpportunity) return "Review your assessment results to identify your top priority area for improvement.";
+				
+				const recommendationMap = {
+					"communication": "Conduct a communication audit to identify and address gaps in your team's virtual collaboration tools and practices. Establish clear guidelines for which tools to use for different purposes (e.g., synchronous vs. asynchronous communication).",
+					"processes": "Document and standardize key workflows with special attention to handoffs between team members in different locations. Create a centralized knowledge repository that makes critical information accessible to all team members regardless of location.",
+					"performance": "Redefine performance metrics to focus on outcomes rather than activity or visibility. Develop clear, measurable objectives that can be tracked regardless of work location.",
+					"resources": "Conduct an equity assessment to identify and address disparities in resource access between remote and on-site team members. Implement a streamlined system for resolving technical issues remotely.",
+					"training": "Develop a distributed work skills curriculum covering essential capabilities for remote/hybrid success. Implement regular learning sessions on remote collaboration best practices.",
+					"trust": "Implement structured vulnerability practices in team meetings to build psychological safety. Create explicit team agreements about communication, responsiveness, and accountability.",
+					"culture": "Establish regular virtual team-building activities that foster connection without creating Zoom fatigue. Create intentional moments for celebrating achievements and milestones virtually.",
+					"adaptability": "Implement regular retrospectives focused specifically on distributed work challenges and learnings. Create cross-functional problem-solving teams to address emerging remote work challenges.",
+					"leadership": "Develop a distributed leadership playbook with clear expectations for communicating direction, providing feedback, and maintaining alignment. Implement structured check-ins focused on goals rather than activities.",
+					"engagement": "Create more opportunities for remote team members to shape team decisions and directions. Implement a recognition program specifically designed for distributed teams.",
+					"crosscultural": "Provide training on cross-cultural communication in virtual environments. Create space for team members to share cultural perspectives and working preferences."
+				};
+				
+				return recommendationMap[topOpportunity.id] || "Focus on your lowest-scoring dimension by creating a specific improvement plan with measurable objectives.";
+			}
+			
+			function getSecondRecommendation(scores, secondOpportunity) {
+				if (!secondOpportunity) return "Consider how factors like psychological safety, clear processes, and effective communication tools interact to support distributed work.";
+				
+				const recommendationMap = {
+					"communication": "Schedule a team workshop to assess and optimize your virtual meeting practices. Develop templates for asynchronous updates to reduce meeting overload.",
+					"processes": "Create visual workflow maps that clarify handoffs and dependencies across team members. Implement a system for regular process improvement suggestions from all team members.",
+					"performance": "Develop a feedback framework specifically designed for remote/hybrid contexts. Train managers on providing effective feedback in virtual environments.",
+					"resources": "Create a resource equity checklist to ensure new tools and resources consider the needs of both remote and on-site team members. Establish clear support protocols for remote technical issues.",
+					"training": "Implement a distributed work onboarding program for new team members. Create a peer learning system where team members can share remote work best practices.",
+					"trust": "Introduce structured practices for giving and receiving feedback in virtual settings. Create more opportunities for informal connections between team members.",
+					"culture": "Develop team rituals that reinforce shared identity and purpose across locations. Create channels for spontaneous collaboration that don't rely on physical proximity.",
+					"adaptability": "Implement rapid experimentation cycles to test new approaches to distributed work challenges. Create learning circles where team members can share challenges and solutions.",
+					"leadership": "Implement transparency practices that give all team members visibility into decisions and priorities. Create structured opportunities for questions and clarification in virtual settings.",
+					"engagement": "Create more opportunities for remote team members to lead projects or initiatives. Implement practices that make contributions visible regardless of location.",
+					"crosscultural": "Create a team charter that explicitly addresses cross-cultural communication practices. Implement rotation of meeting times to accommodate different time zones equitably."
+				};
+				
+				return recommendationMap[secondOpportunity.id] || "Address your second priority area by identifying specific practices that can be implemented within the next 30 days.";
+			}
+			
+			function getThirdRecommendation(scores) {
+				if (scores.practicalAvg < scores.abstractAvg) {
+					return "Invest in developing the structural elements that support distributed work: communication systems, documented workflows, and accessible resources. Even if your team has strong interpersonal trust and engagement, these practical foundations are essential for sustainable remote collaboration.";
+				} else {
+					return "Intentionally nurture the human elements of distributed work: psychological safety, belonging, and cross-cultural understanding. Technical tools and processes alone cannot create an effective distributed team without these cultural foundations.";
+				}
+			}
+		});
+		</script>
+	</body>
+</html>
+
+<style>
+	/* Hero Section */
+	.hero-section {
+		background-color: var(--primary);
+		color: #fff;
+		text-align: center;
+		padding: 60px 20px;
+	}
+	
+	.hero-section h1 {
+		font-size: 2.8rem;
+		margin-bottom: 15px;
+		color: #fff;
+	}
+	
+	.hero-section p {
+		font-size: 1.3rem;
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	
+	/* Main Content */
+	main {
+		max-width: 1000px;
+		margin: 0 auto;
+		padding: 40px 20px;
+	}
+	
+	.survey-intro {
+		text-align: center;
+		margin-bottom: 40px;
+	}
+	
+	.survey-intro h2 {
+		margin-bottom: 20px;
+	}
+	
+	.survey-intro p {
+		max-width: 700px;
+		margin: 0 auto 30px;
+		line-height: 1.6;
+	}
+	
+	.instructions {
+		background: var(--background);
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		padding: 30px;
+		box-shadow: var(--box-shadow);
+		margin: 0 auto;
+		max-width: 700px;
+		text-align: left;
+	}
+	
+	.instructions h3 {
+		margin-bottom: 15px;
+		color: var(--secondary);
+	}
+	
+	.instructions ul {
+		padding-left: 20px;
+	}
+	
+	.instructions li {
+		margin-bottom: 10px;
+	}
+	
+	/* Survey Container */
+	.survey-container {
+		margin: 40px 0;
+	}
+	
+	/* Survey Welcome Section */
+	.survey-welcome {
+		text-align: center;
+		padding: 30px 0;
+	}
+	
+	.survey-welcome h2 {
+		margin-bottom: 20px;
+		color: var(--secondary);
+	}
+	
+	.survey-welcome p {
+		max-width: 600px;
+		margin: 0 auto;
+		line-height: 1.6;
+	}
+	
+	/* Section Intro */
+	.section-intro {
+		text-align: center;
+		padding: 20px;
+		margin-bottom: 20px;
+		background-color: rgba(96, 125, 139, 0.1);
+		border-radius: 8px;
+	}
+	
+	.section-intro h2 {
+		color: var(--secondary);
+		margin-bottom: 10px;
+	}
+	
+	/* Loading Indicator */
+	.loading-results {
+		text-align: center;
+		padding: 60px 0;
+	}
+	
+	.spinner {
+		border: 5px solid rgba(0, 0, 0, 0.1);
+		border-radius: 50%;
+		border-top: 5px solid var(--secondary);
+		width: 50px;
+		height: 50px;
+		animation: spin 1s linear infinite;
+		margin: 0 auto 20px;
+	}
+	
+	@keyframes spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+	
+	/* Results Container */
+	.results-container {
+		background: var(--background);
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		padding: 40px;
+		box-shadow: var(--box-shadow);
+	}
+	
+	.results-header {
+		text-align: center;
+		margin-bottom: 40px;
+	}
+	
+	.results-header h2 {
+		color: var(--primary);
+		margin-bottom: 10px;
+	}
+	
+	/* Overall Maturity Section */
+	.overall-maturity {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 50px;
+		text-align: center;
+	}
+	
+	.maturity-level {
+		text-align: center;
+		padding: 20px;
+		border-radius: 8px;
+		margin-bottom: 20px;
+		width: 100%;
+		max-width: 500px;
+		border: 2px solid;
+	}
+	
+	.maturity-level.exemplary {
+		border-color: #1e7b34;
+		background-color: rgba(30, 123, 52, 0.1);
+	}
+	
+	.maturity-level.advanced {
+		border-color: #2e8540;
+		background-color: rgba(46, 133, 64, 0.1);
+	}
+	
+	.maturity-level.established {
+		border-color: #f8c150;
+		background-color: rgba(248, 193, 80, 0.1);
+	}
+	
+	.maturity-level.developing {
+		border-color: #e48e36;
+		background-color: rgba(228, 142, 54, 0.1);
+	}
+	
+	.maturity-level.emerging {
+		border-color: #d73f3f;
+		background-color: rgba(215, 63, 63, 0.1);
+	}
+	
+	.level-indicator {
+		font-size: 1.8rem;
+		font-weight: bold;
+		margin: 10px 0;
+		font-family: 'Playfair Display', serif;
+	}
+	
+	.maturity-level.exemplary .level-indicator { color: #1e7b34; }
+	.maturity-level.advanced .level-indicator { color: #2e8540; }
+	.maturity-level.established .level-indicator { color: #c9992c; }
+	.maturity-level.developing .level-indicator { color: #cf7213; }
+	.maturity-level.emerging .level-indicator { color: #d73f3f; }
+	
+	.score-display {
+		font-size: 1.4rem;
+		font-weight: bold;
+	}
+	
+	.maturity-description {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	
+	/* Domain Scores */
+	.domain-scores {
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+		margin-bottom: 50px;
+		text-align: center;
+	}
+	
+	.domain-score {
+		flex: 1;
+		padding: 30px;
+		border-radius: 8px;
+		background: white;
+		box-shadow: var(--box-shadow);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	.domain-score h3 {
+		margin-bottom: 20px;
+		color: var(--secondary);
+	}
+	
+	.score-circle {
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.8rem;
+		font-weight: bold;
+		margin-bottom: 15px;
+		color: white;
+	}
+	
+	.score-circle.exemplary { background-color: #1e7b34; }
+	.score-circle.advanced { background-color: #2e8540; }
+	.score-circle.established { background-color: #f8c150; color: #333; }
+	.score-circle.developing { background-color: #e48e36; }
+	.score-circle.emerging { background-color: #d73f3f; }
+	
+	.level-label {
+		font-weight: bold;
+		font-size: 1.2rem;
+	}
+	
+	/* Dimension Breakdown */
+	.dimension-breakdown {
+		margin-bottom: 50px;
+	}
+	
+	.dimension-breakdown h3 {
+		text-align: center;
+		margin-bottom: 30px;
+		color: var(--secondary);
+	}
+	
+	.dimensions {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+	}
+	
+	.dimension-category h4 {
+		margin-bottom: 20px;
+		color: var(--primary);
+		text-align: center;
+	}
+	
+	.dimension-items {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+	}
+	
+	.dimension-item {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 10px;
+	}
+	
+	.dimension-name {
+		margin-bottom: 5px;
+		font-weight: bold;
+	}
+	
+	.dimension-score-bar {
+		height: 25px;
+		background-color: #eaeaea;
+		border-radius: 4px;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.score-fill {
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		border-radius: 4px;
+		transition: width 1s ease-in-out;
+	}
+	
+	.score-fill.exemplary { background-color: #1e7b34; }
+	.score-fill.advanced { background-color: #2e8540; }
+	.score-fill.established { background-color: #f8c150; }
+	.score-fill.developing { background-color: #e48e36; }
+	.score-fill.emerging { background-color: #d73f3f; }
+	
+	.score-value {
+		position: absolute;
+		right: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+		font-weight: bold;
+		color: #333;
+	}
+	
+	/* Insights Section */
+	.insights-section {
+		margin-bottom: 50px;
+	}
+	
+	.insights-section h3 {
+		text-align: center;
+		margin-bottom: 30px;
+		color: var(--secondary);
+	}
+	
+	.insights-container {
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+	}
+	
+	.insight-column {
+		flex: 1;
+		padding: 25px;
+		border-radius: 8px;
+		background: white;
+		box-shadow: var(--box-shadow);
+	}
+	
+	.insight-column h4 {
+		margin-bottom: 20px;
+		text-align: center;
+		color: var(--primary);
+	}
+	
+	.insight-column ul {
+		list-style: none;
+		padding: 0;
+	}
+	
+	.insight-column li {
+		margin-bottom: 20px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #eee;
+	}
+	
+	.insight-column li:last-child {
+		margin-bottom: 0;
+		padding-bottom: 0;
+		border-bottom: none;
+	}
+	
+	.insight-column p {
+		margin-top: 5px;
+		font-size: 0.95rem;
+	}
+	
+	/* Next Steps */
+	.next-steps {
+		background: white;
+		padding: 30px;
+		border-radius: 8px;
+		box-shadow: var(--box-shadow);
+	}
+	
+	.next-steps h3 {
+		text-align: center;
+		margin-bottom: 20px;
+		color: var(--secondary);
+	}
+	
+	.next-steps ol {
+		padding-left: 25px;
+		margin-bottom: 30px;
+	}
+	
+	.next-steps li {
+		margin-bottom: 15px;
+		line-height: 1.5;
+	}
+	
+	.action-buttons {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+		margin-top: 30px;
+		text-align: center;
+	}
+	
+	.download-btn, .connect-btn {
+		display: inline-block;
+		padding: 14px 28px;
+		border-radius: 4px;
+		font-weight: bold;
+		text-decoration: none;
+		transition: all 0.3s ease;
+		margin: 0 auto;
+	}
+	
+	.download-btn {
+		background-color: var(--primary);
+		color: white;
+		border: none;
+	}
+	
+	.connect-btn {
+		background-color: white;
+		color: var(--secondary);
+		border: 2px solid var(--secondary);
+	}
+	
+	.download-btn:hover {
+		background-color: #372026;
+		text-decoration: none;
+		color: white;
+	}
+	
+	.connect-btn:hover {
+		background-color: var(--secondary);
+		color: white;
+		text-decoration: none;
+	}
+	
+	/* Responsive design */
+	@media (min-width: 768px) {
+		.domain-scores {
+			flex-direction: row;
+		}
+		
+		.insights-container {
+			flex-direction: row;
+		}
+		
+		.dimensions {
+			flex-direction: row;
+		}
+		
+		.action-buttons {
+			flex-direction: row;
+			justify-content: center;
+		}
+		
+		.download-btn, .connect-btn {
+			margin: 0 10px;
+		}
+	}
+	
+	@media (max-width: 767px) {
+		.hero-section h1 {
+			font-size: 2rem;
+		}
+		
+		.hero-section p {
+			font-size: 1.1rem;
+		}
+		
+		.results-container {
+			padding: 20px;
+		}
+		
+		.score-circle {
+			width: 80px;
+			height: 80px;
+			font-size: 1.5rem;
+		}
+	}
+	
+	@media print {
+		.hero-section, header, footer, .action-buttons {
+			display: none;
+		}
+		
+		.results-container {
+			box-shadow: none;
+			border: none;
+			padding: 0;
+		}
+		
+		body {
+			font-size: 12pt;
+			color: black;
+		}
+		
+		@page {
+			margin: 2cm;
+		}
+	}
+</style>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eudexio - Empowering Remote Leaders</title>
+  
+  <!-- Google Fonts embed code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Body uses Lato for copy and background color #FFFAF0 */
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: #FFFAF0;
+      color: #333;
+      line-height: 1.5;
+      padding: 10px;
+    }
+    
+    /* All Headers (titles) use Playfair Display */
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    /* Header / Hero Section */
+    header {
+      background-color: #482532; /* Primary/Banner Color */
+      color: #fff;
+      text-align: center;
+      padding: 20px 10px;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 5px;
+      text-decoration: underline;
+    }
+    header p {
+      font-size: 1.1rem;
+    }
+    
+    /* Main Content Section */
+    section {
+      margin: 20px 0;
+    }
+    section h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    section p {
+      text-align: center;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      padding: 0 10px;
+    }
+    
+    /* About the Founders Section */
+    #about {
+      padding: 20px 10px;
+      background-color: #FFFAF0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    #about p {
+      margin-bottom: 15px;
+    }
+    
+    /* Modules Section */
+    .modules {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0 10px;
+    }
+    .module {
+      background: #FFFAF0; /* Background instead of white */
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .module h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #607D8B; /* Secondary Color */
+    }
+    /* Center the "Boosting Productivity Without Micromanagement" header */
+    .module h3.centered {
+      text-align: center;
+    }
+    .module p {
+      font-size: 1rem;
+    }
+    
+    /* Call-to-Action (CTA) Section */
+    .cta {
+      background: #FFFAF0; /* Background instead of white */
+      padding: 20px 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+    .cta h2 {
+      font-size: 1.6rem;
+      color: #607D8B; /* Secondary Color */
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .cta p {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      text-align: center;
+      padding: 0 10px;
+    }
+    .cta form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 0 10px;
+    }
+    .cta form label {
+      font-weight: bold;
+    }
+    .cta form input[type="text"],
+    .cta form input[type="email"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .cta form input[type="submit"] {
+      padding: 12px;
+      background: #607D8B; /* Secondary Color */
+      border: none;
+      color: #fff;
+      font-size: 1.1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .cta form input[type="submit"]:hover {
+      background: #482532; /* Primary/Banner Color on hover */
+    }
+    
+    /* Footer */
+    footer {
+      background: #482532; /* Primary/Banner Color */
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    /* Responsive Layout for Modules */
+    @media (min-width: 600px) {
+      .modules {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .module {
+        flex: 0 0 48%;
+      }
+    }
+    
+    @media (min-width: 900px) {
+      .module {
+        flex: 0 0 30%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Hero Section -->
+  <header>
+    <h1>Eudexio</h1>
+    <p>Empowering Remote Leaders to Succeed</p>
+  </header>
+  
+  <!-- Main Content Section -->
+  <section>
+    <h2>Transform Your Remote Leadership</h2>
+    <p>
+      Overcome the challenges of remote work with actionable training modules in communication, trust-building, and productivity. Elevate your leadership and empower your team—anywhere, anytime.
+    </p>
+  </section>
+  
+  <!-- About the Founders Section -->
+  <section id="about">
+    <h2>About the Founders</h2>
+    <p>
+      We, the cofounders, are I/O psychologists with nearly two decades of experience in talent development.
+    </p>
+    <p>
+      Our approach is rooted in empirical research, yet our experience working with Fortune 500 companies enables us to recognize the uniqueness of each situation and tailor our strategy to your needs.
+    </p>
+    <p>
+      We believe that change can happen fast—and not be overwhelming—if done thoughtfully and strategically.
+    </p>
+  </section>
+  
+  <!-- Modules Overview -->
+  <section>
+    <div class="modules">
+      <div class="module">
+        <h3>Communication in a Virtual World</h3>
+        <p>
+          Master efficient, asynchronous communication to keep your team aligned without endless meetings.
+        </p>
+      </div>
+      <div class="module">
+        <h3>Building Trust Across Time Zones</h3>
+        <p>
+          Develop strategies that build a cohesive team culture, no matter where your team members are located.
+        </p>
+      </div>
+      <div class="module">
+        <h3 class="centered">Boosting Productivity Without Micromanagement</h3>
+        <p>
+          Learn to track performance with modern tools while empowering your team with autonomy.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Call-to-Action (CTA) Section -->
+  <section class="cta">
+    <h2>Get Your Free Training Module</h2>
+    <p>
+      Unlock your leadership potential with a free preview of Module 1. Join our community of forward-thinking leaders today!
+    </p>
+    <form action="https://example.com/subscribe" method="post">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      <label for="email">Your Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      <input type="submit" value="Get My Free Module">
+    </form>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Eudexio. All rights reserved.</p>
+  </footer>
+</body>
+</html>

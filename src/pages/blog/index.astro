@@ -3,109 +3,330 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
-
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
+		<BaseHead title="Resource Library — Coming Soon" description="Tools, frameworks, and insights for distributed leadership" />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+			<div class="hero-section">
+				<h1>Resource Library</h1>
+				<div class="badge">Coming Soon</div>
+			</div>
+			
+			<section class="coming-soon">
+				<div class="content-container">
+					<h2>Beyond Remote Work Tips</h2>
+					
+					<p class="lead">
+						We're creating a collection of tools and insights that address the fundamental shifts in how organizations operate when unconstrained by physical proximity.
+					</p>
+					
+					<div class="preview-grid">
+						<div class="preview-card">
+							<div class="card-header">
+								<svg class="icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M10 1L1 6L10 11L19 6L10 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M1 14L10 19L19 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M1 10L10 15L19 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+								<h3>Field Guide</h3>
+							</div>
+							<p>
+								Practical insights from our work with distributed teams across industries—raw, unfiltered observations on what's working and what's not.
+							</p>
+						</div>
+						
+						<div class="preview-card">
+							<div class="card-header">
+								<svg class="icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+									<path d="M7 7H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+									<path d="M7 10H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+									<path d="M7 13H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+								</svg>
+								<h3>Operating Models</h3>
+							</div>
+							<p>
+								Frameworks that help you navigate the tensions between autonomy and alignment, presence and performance, connection and focus.
+							</p>
+						</div>
+						
+						<div class="preview-card">
+							<div class="card-header">
+								<svg class="icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M7 17V11C7 9.89543 7.89543 9 9 9H11C12.1046 9 13 9.89543 13 11V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M3 17H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+									<path d="M3 8L10 3L17 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+								<h3>Blueprint Collection</h3>
+							</div>
+							<p>
+								Case studies of organizations reimagining how work happens beyond industrial-era assumptions about time and space.
+							</p>
+						</div>
+					</div>
+					
+					<div class="quote-container">
+						<blockquote>
+							The future of work isn't about location—it's about transforming how coordination happens across distance and creating environments where humans thrive without constant proximity.
+						</blockquote>
+					</div>
+					
+					<div class="waitlist-section">
+						<div class="waitlist-content">
+							<h3>Be the first to receive new resources</h3>
+							<p>
+								Join our waitlist for early access to tools and insights as they're published. We're rethinking distributed work at a fundamental level—beyond tips and hacks.
+							</p>
+							
+							<form class="waitlist-form">
+								<input type="email" placeholder="Your email address" required />
+								<button type="submit">Join Waitlist</button>
+							</form>
+							
+							<p class="privacy-note">We respect your privacy and won't share your information.</p>
+						</div>
+					</div>
+				</div>
 			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	main {
+		width: 100%;
+		margin: 0 auto;
+	}
+	
+	/* Hero Section */
+	.hero-section {
+		background-color: var(--primary);
+		color: #fff;
+		text-align: center;
+		padding: 80px 20px;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.hero-section h1 {
+		font-size: 3.5rem;
+		margin-bottom: 15px;
+		color: #fff;
+	}
+	
+	.badge {
+		display: inline-block;
+		background-color: rgba(255, 255, 255, 0.15);
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		padding: 8px 20px;
+		border-radius: 20px;
+		font-size: 1rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+	
+	/* Content Section */
+	.coming-soon {
+		padding: 80px 20px;
+	}
+	
+	.content-container {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+	
+	.content-container h2 {
+		font-size: 2.2rem;
+		margin-bottom: 25px;
+		color: var(--primary);
+		text-align: center;
+	}
+	
+	.lead {
+		font-size: 1.25rem;
+		line-height: 1.6;
+		color: #555;
+		margin-bottom: 60px;
+		text-align: center;
+		max-width: 650px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	/* Preview Grid */
+	.preview-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 30px;
+		margin-bottom: 70px;
+	}
+	
+	.preview-card {
+		background-color: white;
+		border-radius: 8px;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+		padding: 30px;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+	
+	.preview-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+	}
+	
+	.card-header {
+		display: flex;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+	
+	.icon {
+		width: 24px;
+		height: 24px;
+		margin-right: 12px;
+		color: var(--secondary);
+	}
+	
+	.preview-card h3 {
+		font-size: 1.2rem;
+		color: var(--secondary);
+		margin: 0;
+	}
+	
+	.preview-card p {
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: #666;
+		margin: 0;
+	}
+	
+	/* Quote */
+	.quote-container {
+		margin: 50px 0 60px;
+		padding: 0 20px;
+	}
+	
+	blockquote {
+		font-family: 'Playfair Display', serif;
+		font-size: 1.4rem;
+		font-style: italic;
+		line-height: 1.5;
+		color: var(--primary);
+		position: relative;
+		max-width: 700px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	
+	blockquote::before,
+	blockquote::after {
+		content: "";
+		display: block;
+		height: 2px;
+		width: 100px;
+		background-color: rgba(96, 125, 139, 0.2);
+		margin: 30px auto;
+	}
+	
+	/* Waitlist Section */
+	.waitlist-section {
+		background: linear-gradient(to right, rgba(96, 125, 139, 0.1), rgba(72, 37, 50, 0.1));
+		border-radius: 12px;
+		padding: 5px;
+		margin-top: 60px;
+	}
+	
+	.waitlist-content {
+		background-color: white;
+		border-radius: 8px;
+		padding: 40px;
+		text-align: center;
+	}
+	
+	.waitlist-section h3 {
+		font-size: 1.5rem;
+		color: var(--primary);
+		margin-bottom: 15px;
+	}
+	
+	.waitlist-section p {
+		font-size: 1rem;
+		line-height: 1.6;
+		max-width: 500px;
+		margin: 0 auto 30px;
+		color: #555;
+	}
+	
+	.waitlist-form {
+		display: flex;
+		max-width: 460px;
+		margin: 0 auto 20px;
+		gap: 10px;
+	}
+	
+	.waitlist-form input {
+		flex: 1;
+		padding: 12px 15px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		font-size: 0.95rem;
+	}
+	
+	.waitlist-form button {
+		background-color: var(--primary);
+		color: white;
+		border: none;
+		border-radius: 4px;
+		padding: 0 20px;
+		font-weight: 600;
+		font-size: 0.95rem;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+		white-space: nowrap;
+	}
+	
+	.waitlist-form button:hover {
+		background-color: #5b3141;
+	}
+	
+	.privacy-note {
+		font-size: 0.8rem !important;
+		color: #888 !important;
+		margin-top: 15px !important;
+	}
+	
+	/* Responsive Styles */
+	@media (max-width: 768px) {
+		.hero-section h1 {
+			font-size: 2.5rem;
+		}
+		
+		.lead {
+			font-size: 1.1rem;
+		}
+		
+		blockquote {
+			font-size: 1.2rem;
+		}
+		
+		.waitlist-form {
+			flex-direction: column;
+		}
+		
+		.waitlist-form button {
+			width: 100%;
+			padding: 12px 15px;
+		}
+	}
+</style>
